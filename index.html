@@ -1,1 +1,210 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>💌 رسالة حب لرُبى</title>
 
+<style>
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:radial-gradient(circle,#ff4d6d,#1a001f);
+  font-family:Arial;
+  color:white;
+  overflow:hidden;
+  text-align:center;
+}
+
+.box{
+  background:rgba(255,255,255,0.08);
+  padding:25px;
+  border-radius:20px;
+  width:340px;
+  backdrop-filter:blur(15px);
+  box-shadow:0 0 70px rgba(255,77,109,0.6);
+}
+
+h1{
+  font-size:20px;
+  text-shadow:0 0 15px #ff4d6d;
+}
+
+input, button{
+  padding:10px 15px;
+  border:none;
+  border-radius:10px;
+  margin-top:10px;
+  font-size:14px;
+}
+
+button{
+  cursor:pointer;
+  background:#00ffb3;
+  font-weight:bold;
+}
+
+#msg{
+  margin-top:15px;
+  min-height:140px;
+  font-size:18px;
+  white-space:pre-line;
+}
+
+#error{
+  color:#ffcccc;
+  margin-top:10px;
+}
+
+/* 💓 التاريخ النابض */
+#memory{
+  position:fixed;
+  bottom:15px;
+  left:50%;
+  transform:translateX(-50%);
+  color:white;
+  font-size:15px;
+  padding:10px 14px;
+  background:rgba(0,0,0,0.35);
+  border-radius:12px;
+  backdrop-filter:blur(10px);
+  box-shadow:0 0 20px rgba(255,77,109,0.6);
+  text-shadow:0 0 10px #ff4d6d;
+  animation:beat 2s infinite;
+}
+
+@keyframes beat{
+  0%{transform:translateX(-50%) scale(1); opacity:0.8;}
+  50%{transform:translateX(-50%) scale(1.1); opacity:1;}
+  100%{transform:translateX(-50%) scale(1); opacity:0.85;}
+}
+
+/* 💖 قلوب */
+.heart{
+  position:absolute;
+  color:#ff4d6d;
+  animation:fall 6s linear infinite;
+}
+
+@keyframes fall{
+  0%{transform:translateY(-50px)}
+  100%{transform:translateY(100vh)}
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎬 صوت سينمائي -->
+<audio id="cinemaSound" preload="auto">
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8b5b2d3c4.mp3?filename=cinematic-transition-11776.mp3">
+</audio>
+
+<!-- 💓 صوت نبضة -->
+<audio id="heartBeatSound" preload="auto">
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7b6f1f4c3b.mp3?filename=heartbeat-01-103560.mp3">
+</audio>
+
+<!-- 📅 ذكرى -->
+<div id="memory">
+📅 ذكرى تعارفنا: 25/04/2025 ⏰ 3:21
+</div>
+
+<div class="box">
+
+<h1>💖 هل تحب رُبى؟ 💖</h1>
+
+<p>جاوب بصراحة 😏</p>
+
+<button onclick="start()">أنا بموت برُبى ❤️🔥</button>
+<button onclick="start()">أنا بعشقها 💖</button>
+
+<div id="codeBox" style="display:none;">
+  <p>ادخل كلمة السر 🔒</p>
+  <input id="code" placeholder="1542004">
+  <br>
+  <button onclick="check()">فتح الرسالة 💌</button>
+</div>
+
+<div id="error"></div>
+<div id="msg"></div>
+
+</div>
+
+<script>
+
+function hearts(){
+  for(let i=0;i<60;i++){
+    let h=document.createElement("div");
+    h.innerHTML="💖";
+    h.className="heart";
+    h.style.left=Math.random()*100+"vw";
+    h.style.animationDuration=(2+Math.random()*4)+"s";
+    document.body.appendChild(h);
+  }
+}
+
+let message =
+"💌 رُبى...\n\n" +
+"أنا ما بحبك حب عادي...\n" +
+"أنا بموت فيكي وبعشقك 💖\n\n" +
+"إنتِ مش شخص...\n" +
+"إنتِ احلى شي بحياتي 💫\n\n" +
+"كل يوم بحبك أكتر...\n\n" +
+"📅 25/04/2025 ⏰ 3:21\n\n" +
+"وبكل صدق...\n" +
+" أنا بحبك ورح ضل حبك لآخر يوم بعمري وما رح يكون في غيرك بقلبي❤️";
+
+function start(){
+  document.getElementById("codeBox").style.display="block";
+}
+
+function type(){
+  hearts();
+  let i=0;
+  let box=document.getElementById("msg");
+  box.innerHTML="";
+
+  function typing(){
+    if(i<message.length){
+      box.innerHTML += message.charAt(i);
+      i++;
+      setTimeout(typing,35);
+    }
+  }
+
+  typing();
+}
+
+function check(){
+  let code=document.getElementById("code").value.trim();
+  let error=document.getElementById("error");
+
+  if(code !== "1542004"){
+    error.innerText="❌ كلمة السر غلط 💔";
+    return;
+  }
+
+  error.innerText="";
+
+  // 🎬 صوت سينمائي
+  let audio = document.getElementById("cinemaSound");
+  audio.currentTime = 0;
+  audio.play();
+
+  type();
+}
+
+// 💓 نبض القلب مع صوت
+setInterval(()=>{
+  let sound=document.getElementById("heartBeatSound");
+  sound.currentTime=0;
+  sound.play();
+},2000);
+
+</script>
+
+</body>
+</html>
