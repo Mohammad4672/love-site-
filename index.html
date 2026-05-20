@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💖 Love Story</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  background: linear-gradient(45deg, #ff4d6d, #ff99ac);
+  overflow: hidden;
+  color: white;
+  text-align: center;
+}
+
+.page {
+  display: none;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.active {
+  display: flex;
+}
+
+h1 {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 20px;
+  background: white;
+  color: #ff4d6d;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.heart {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: red;
+  transform: rotate(45deg);
+  animation: float 6s infinite;
+}
+
+.heart:before,
+.heart:after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: red;
+  border-radius: 50%;
+}
+
+.heart:before { top: -10px; left: 0; }
+.heart:after { left: -10px; top: 0; }
+
+@keyframes float {
+  0% { transform: translateY(100vh) rotate(45deg); opacity: 1; }
+  100% { transform: translateY(-10vh) rotate(45deg); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- AUDIO -->
+<audio id="music" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/02/22/audio_c8c8a8d6b3.mp3?filename=romantic-110319.mp3" type="audio/mpeg">
+</audio>
+
+<!-- PAGE 1 -->
+<div class="page active" id="p1">
+  <h1>💖 Welcome My Love</h1>
+  <button onclick="nextPage()">Start</button>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page" id="p2">
+  <h1>كل شي بلّش بهاللحظة ✨</h1>
+  <button onclick="nextPage()">Next</button>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page" id="p3">
+  <h1>أنا بحبك 💘</h1>
+  <button onclick="nextPage()">Final</button>
+</div>
+
+<!-- PAGE 4 -->
+<div class="page" id="p4">
+  <h1>💍 النهاية... بس البداية إلنا</h1>
+</div>
+
+<script>
+let current = 1;
+
+function nextPage() {
+  if (current === 1) {
+    document.getElementById("music").play(); // لازم click
+  }
+
+  document.getElementById("p" + current).classList.remove("active");
+  current++;
+  document.getElementById("p" + current).classList.add("active");
+}
+
+// hearts
+function createHearts() {
+  setInterval(() => {
+    let h = document.createElement("div");
+    h.className = "heart";
+    h.style.left = Math.random() * 100 + "vw";
+    document.body.appendChild(h);
+
+    setTimeout(() => h.remove(), 6000);
+  }, 300);
+}
+
+createHearts();
+</script>
+
+</body>
+</html>
