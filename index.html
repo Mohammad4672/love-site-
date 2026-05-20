@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💌 Ruba</title>
+
+<style>
+body{
+  margin:0;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-wrap:wrap;
+  background:linear-gradient(45deg,#ff4d6d,#ff99ac);
+  font-family:Arial;
+  padding:20px;
+  overflow:hidden;
+  position:relative;
+}
+
+.envelope{
+  width:130px;
+  height:100px;
+  margin:10px;
+  background:rgba(255,255,255,0.25);
+  border-radius:12px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  cursor:pointer;
+  transition:0.3s;
+  color:white;
+  position:relative;
+  flex-direction:column;
+}
+
+.envelope:hover{transform:scale(1.05);}
+
+.envelope.opened{
+  background:white;
+  color:#ff4d6d;
+}
+
+.icon{font-size:30px;}
+
+.date{
+  font-size:12px;
+  opacity:0.9;
+  margin-top:4px;
+}
+
+.inner-msg{
+  display:none;
+  font-size:12px;
+  text-align:center;
+  padding:5px;
+}
+
+.envelope.opened .inner-msg{
+  display:block;
+}
+
+.envelope.opened .icon{
+  display:none;
+}
+
+/* 💖 hearts */
+.heart{
+  position:fixed;
+  color:white;
+  font-size:18px;
+  animation:float 3s linear forwards;
+}
+
+@keyframes float{
+  0%{transform:translateY(0);opacity:1;}
+  100%{transform:translateY(-220px);opacity:0;}
+}
+
+/* 🔐 secret */
+#secretMsg{
+  display:none;
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  background:white;
+  color:#ff4d6d;
+  padding:20px;
+  border-radius:15px;
+  font-size:18px;
+  text-align:center;
+  box-shadow:0 10px 30px rgba(0,0,0,0.2);
+  z-index:999;
+}
+</style>
+</head>
+
+<body>
+
+<!-- 1 -->
+<div class="envelope" onclick="openEnv(this)">
+  <div class="icon">💌</div>
+  <div class="inner-msg">إنتِ أجمل شي بحياتي 💖</div>
+</div>
+
+<!-- 2 -->
+<div class="envelope" onclick="openEnv(this)">
+  <div class="icon">💌</div>
+  <div class="inner-msg">وجودك بيخلي حياتي احلى 💞</div>
+</div>
+
+<!-- 3 -->
+<div class="envelope" onclick="openEnv(this)">
+  <div class="icon">💌</div>
+  <div class="inner-msg">بشتقلك بكل لحظة 🌸</div>
+</div>
+
+<!-- 4 -->
+<div class="envelope" onclick="openEnv(this)">
+  <div class="icon">💌</div>
+  <div class="inner-msg">معك بتصير الحياة حلوة 💫</div>
+</div>
+
+<!-- 5 -->
+<div class="envelope" onclick="openEnv(this)">
+  <div class="icon">💌</div>
+  <div class="inner-msg">بحبك أكتر من كل شي 💖</div>
+</div>
+
+<!-- 6 -->
+<div class="envelope" onclick="openEnv(this)">
+  <div class="icon">💌</div>
+  <div class="inner-msg">إنتِ قلبي وروحي 💕</div>
+</div>
+
+<!-- 7 -->
+<div class="envelope" onclick="openEnv(this)">
+  <div class="icon">💌</div>
+  <div class="inner-msg"> بموت فيكي 💗</div>
+</div>
+
+<!-- 8 -->
+<div class="envelope" onclick="openEnv(this)">
+  <div class="icon">💌</div>
+  <div class="inner-msg">كل لحظة معك بتسوى الدنيا كلها 💌</div>
+</div>
+
+<!-- 9 🔐 SPECIAL -->
+<div class="envelope" onclick="openSecret(this)">
+  <div class="icon">💌</div>
+  <div class="date">25/04/2025</div>
+  <div class="inner-msg">هيدا صار تاريخ ميلادي يا قلبي 💖</div>
+</div>
+
+<!-- SECRET MESSAGE -->
+<div id="secretMsg">
+أنا معك وحدك لآخر العمر بحبك كتيرررر ❤️
+<br><br>
+<button onclick="document.getElementById('secretMsg').style.display='none'"
+style="background:#ff4d6d;color:white;border:none;padding:8px 15px;border-radius:10px;">
+إغلاق
+</button>
+</div>
+
+<script>
+
+function openEnv(el){
+  el.classList.toggle("opened");
+  createHearts(el);
+}
+
+/* 🔐 secret */
+function openSecret(el){
+
+  let pass = prompt("اكتبي كلمة السر 🔐");
+
+  if(pass === "Ruba"){
+    el.classList.add("opened");
+    createHearts(el);
+
+    setTimeout(()=>{
+      document.getElementById("secretMsg").style.display = "block";
+    }, 600);
+
+  } else {
+    alert("كلمة السر غلط 💔");
+  }
+}
+
+/* 💖 hearts */
+function createHearts(el){
+  const rect = el.getBoundingClientRect();
+
+  for(let i=0;i<10;i++){
+    let h=document.createElement("div");
+    h.classList.add("heart");
+    h.innerHTML="💖";
+
+    h.style.left=(rect.left + rect.width/2)+"px";
+    h.style.top=rect.top+"px";
+    h.style.position="fixed";
+
+    h.style.fontSize=(Math.random()*20+10)+"px";
+
+    document.body.appendChild(h);
+
+    setTimeout(()=>h.remove(),3000);
+  }
+}
+
+</script>
+
+</body>
+</html>
